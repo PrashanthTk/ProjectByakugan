@@ -69,6 +69,7 @@ var width=w;
 var height=h;
 var table=document.getElementById('mytable');
 table.rows[prev.split(';')[1]].cells[prev.split(';')[0]].innerHTML=0;
+table.rows[prev.split(';')[1]].cells[prev.split(';')[0]].style.backgroundColor="white";
 //var height=document.getElementById('height').value;
 //var width=document.getElementById('width').value;
 //var finalx=document.getElementById('x').value;
