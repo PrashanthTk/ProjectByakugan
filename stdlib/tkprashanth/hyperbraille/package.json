@@ -1,0 +1,23 @@
+{
+  "name": "hyperbraille",
+  "version": "0.0.0",
+  "description": "A hyperbraille interface for spatial sensing",
+  "author": "tkprashanth <prashanthtk2779@gmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {
+    "lib": "^4.0.1",
+    "request": "^2.85.0"
+  },
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "tkprashanth/hyperbraille",
+    "timeout": 10000,
+    "publish": true,
+    "personalize": {
+      "keys": [],
+      "user": []
+    },
+    "source": "@JanethL/dailysnapshot/0.0.1"
+  }
+}
