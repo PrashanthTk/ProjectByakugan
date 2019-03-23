@@ -216,14 +216,17 @@ class _GameActivityState extends State<GameActivity> {
     posy=posy/378;
     // ignore: argument_type_not_assignable
     //List <Map<num,num>> modeloutput = [];
-    var modeloutput={1000:3,500:4,2000:3.5};
+    var modeloutput={500:4,1000:3.5,2000:3};
+
     void helper(x,displacement)
     {
 
-        int rowindex=(x*xscalefactor).round();
+        int rowindex=(x*xscalefactor).floor();
         // ignore: expected_type_name
-        int colindex=((10-displacement)*yscalefactor).round();
-        openedSquares[colindex*10+rowindex]=true;
+        int colindex=(10-displacement*yscalefactor).round();
+        openedSquares[colindex*6+rowindex]=true;
+        log.fine(colindex*10+rowindex);
+        log.fine('thats how we do it!!!!!');
 
     }
     modeloutput.forEach((x,displacement)=>helper(x,displacement));
