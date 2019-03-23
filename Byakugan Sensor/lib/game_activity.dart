@@ -43,7 +43,7 @@ class _GameActivityState extends State<GameActivity> {
   // Probability that a square will be a bomb
   int bombProbability = 3;
   int maxProbability = 15;
-
+  int mode=0; //if mode ==1 then its far sensing
   int bombCount = 0;
   int squaresLeft;
   num xscalefactor=6/3024;
@@ -216,18 +216,19 @@ class _GameActivityState extends State<GameActivity> {
     posy=posy/378;
     // ignore: argument_type_not_assignable
     //List <Map<num,num>> modeloutput = [];
-    var modeloutput={500:4,1000:3.5,2000:3};
+    var modeloutput={500:400,1000:350,2000:0};
 
     void helper(x,displacement)
     {
 
         int rowindex=(x*xscalefactor).floor();
         // ignore: expected_type_name
-        int colindex=(10-displacement*yscalefactor).round();
-        openedSquares[colindex*6+rowindex]=true;
-        log.fine(colindex*10+rowindex);
-        log.fine('thats how we do it!!!!!');
-
+        if ((displacement<500) && (mode<1)) {
+          int colindex = (9 - (displacement / 100) * yscalefactor).floor();
+          openedSquares[colindex * 6 + rowindex] = true;
+          log.fine(colindex * 10 + rowindex);
+          log.fine('thats how we do it!!!!!');
+        }
     }
     modeloutput.forEach((x,displacement)=>helper(x,displacement));
 
