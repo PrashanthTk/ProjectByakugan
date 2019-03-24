@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_minesweeper/board_square.dart';
 import 'package:vibrate/vibrate.dart';
 import 'package:camera/camera.dart';
+import 'dart:io';
 // Types of images available
 
 enum ImageType {
@@ -33,6 +34,7 @@ class _GameActivityState extends State<GameActivity> {
   final Logger log = new Logger('GameActivityState');
   // The grid of squares
   List<List<BoardSquare>> board;
+  
 
   // "Opened" refers to being clicked already
   List<bool> openedSquares;
@@ -56,26 +58,26 @@ class _GameActivityState extends State<GameActivity> {
   }
   void rendermap(int x, int y,int width,int height)
   { num finalx=0,finaly=0;
-    if (x>3024)
-      finalx=x-1008;
-    finaly=y-(height/2);
-    num Y=finaly;
-    if (Y<3024)
-      {
-        Y=Y/378;
-        finaly=Y.floor();
-        //finaly=Math.floor(Y/378);// row number
-        num X=finalx/378;
-        finalx=X.floor();
-        //finalx=Math.floor(finalx/378);// column number
-      }
-      else
-        {
-          finalx=4;
-          finaly=60;
-        }
-        int ans=finaly+finalx;
-      log.fine('The coordinates are ======== $ans');
+  if (x>3024)
+    finalx=x-1008;
+  finaly=y-(height/2);
+  num Y=finaly;
+  if (Y<3024)
+  {
+    Y=Y/378;
+    finaly=Y.floor();
+    //finaly=Math.floor(Y/378);// row number
+    num X=finalx/378;
+    finalx=X.floor();
+    //finalx=Math.floor(finalx/378);// column number
+  }
+  else
+  {
+    finalx=4;
+    finaly=60;
+  }
+  int ans=finaly+finalx;
+  log.fine('The coordinates are ======== $ans');
 
   }
   /*void findHumans(int[][] humans)
@@ -95,12 +97,12 @@ class _GameActivityState extends State<GameActivity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+       body: ListView(
         children: <Widget>[
           Container(
             color: Colors.grey,
-            height: 60.0,
-            width: double.infinity,
+            height: 15,
+            width: 15,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -154,10 +156,14 @@ class _GameActivityState extends State<GameActivity> {
               return InkWell(
                 // Opens square
                 onTap: () {
-                  if (board[rowNumber][columnNumber].hasBomb) {
+                  if (openedSquares[position] == true) {
+                    Vibrate.vibrate();
+                  }
+                  /*if (board[rowNumber][columnNumber].hasBomb) {
                     Vibrate.vibrate();
                     print('FOUnd a human here======');
-                  }
+                  }*/
+
                   /*if (board[rowNumber][columnNumber].bombsAround == 0) {
                     _handleTap(rowNumber, columnNumber);
                   } else {
@@ -166,7 +172,6 @@ class _GameActivityState extends State<GameActivity> {
                       squaresLeft = squaresLeft - 1;
                     });
                   }
-
                   if(squaresLeft <= bombCount) {
                     _handleWin();
                   }*/
@@ -187,9 +192,10 @@ class _GameActivityState extends State<GameActivity> {
                 ),
               );
             },
-             itemCount: rowCount * columnCount,
+            itemCount: rowCount * columnCount,
           ),
         ],
+
       ),
     );
   }
@@ -221,14 +227,14 @@ class _GameActivityState extends State<GameActivity> {
     void helper(x,displacement)
     {
 
-        int rowindex=(x*xscalefactor).floor();
-        // ignore: expected_type_name
-        if ((displacement<500) && (mode<1)) {
-          int colindex = (9 - (displacement / 100) * yscalefactor).floor();
-          openedSquares[colindex * 6 + rowindex] = true;
-          log.fine(colindex * 10 + rowindex);
-          log.fine('thats how we do it!!!!!');
-        }
+      int rowindex=(x*xscalefactor).floor();
+      // ignore: expected_type_name
+      if ((displacement<500) && (mode<1)) {
+        int colindex = (9 - (displacement / 100) * yscalefactor).floor();
+        openedSquares[colindex * 6 + rowindex] = true;
+        log.fine(colindex * 10 + rowindex);
+        log.fine('thats how we do it!!!!!');
+      }
     }
     modeloutput.forEach((x,displacement)=>helper(x,displacement));
 
