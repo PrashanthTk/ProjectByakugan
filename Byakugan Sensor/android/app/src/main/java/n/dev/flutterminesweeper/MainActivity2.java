@@ -14,7 +14,7 @@ import android.util.Log;
 import android.content.Intent;
 
 import android.os.Handler;
-public class MainActivity extends FlutterActivity {
+public class MainActivity2 extends FlutterActivity {
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice = null;
     final byte delimiter = 33;

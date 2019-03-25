@@ -7,6 +7,7 @@ import 'package:camera/camera.dart';
 import 'dart:io';
 // Types of images available
 
+
 enum ImageType {
   zero,
   one,
